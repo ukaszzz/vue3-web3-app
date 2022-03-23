@@ -2,12 +2,16 @@ const hre = require("hardhat");
 
 async function main() {
 
-  const Greeter = await hre.ethers.getContractFactory("Greeter");
-  const greeter = await Greeter.deploy("Hello, Hardhat!");
+  const [deployer] = await hre.ethers.getSigners();
 
-  await greeter.deployed();
+  console.log("deploying to:", deployer.address);
 
-  console.log("Greeter deployed to:", greeter.address);
+  const wavePortal = await hre.ethers.getContractFactory('WavePortal');
+  const wave = await wavePortal.deploy();
+
+  await wave.deployed();
+
+    console.log('portal deployed to:', wave.address)
 }
 
 
